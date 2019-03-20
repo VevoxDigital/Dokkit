@@ -1,0 +1,19 @@
+{
+  "include": [
+    "src"
+  ],
+  "reporter": [
+    "lcov",
+    "text-summary"
+  ],
+  "require": [
+    "@babel/register"
+  ],
+  "extension": [
+    ".ts",
+    ".tsx"
+  ],
+  "all": true,
+  "instrument": true,
+  "sourceMap": false
+}

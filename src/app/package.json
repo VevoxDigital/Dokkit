@@ -1,0 +1,13 @@
+{
+  "name": "@dokkit/app",
+  "version": "0.0.1+app.17C1E29B",
+  "scripts": {
+    "start": "node ."
+  },
+  "main": "index",
+  "description": "Powerful and modern documentation hub and wiki",
+  "author": "Vevox Digital",
+  "repository": "https://lab.vevox.io/open-source/dokkit",
+  "license": "GPL-v3.0",
+  "private": true
+}
