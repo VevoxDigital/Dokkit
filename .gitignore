@@ -1,0 +1,7 @@
+
+# Vendor files and libraries
+node_modules/
+
+# Logs and such
+npm-error.log
+yarn-error.log

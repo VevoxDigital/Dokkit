@@ -1,0 +1,10 @@
+{
+  "name": "@dokkit/root",
+  "version": "0.0.1",
+  "description": "Powerful and modern documentation hub and wiki",
+  "main": "project/index",
+  "repository": "https://lab.vevox.io/open-source/dokkit",
+  "author": "Thri Borealis <thri@vevox.io>",
+  "license": "GPL-v3.0",
+  "private": true
+}

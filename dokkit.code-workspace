@@ -1,0 +1,10 @@
+{
+	"folders": [
+		// Root
+		{
+			"name": "horizon",
+			"path": "."
+		}
+	],
+	"settings": {}
+}
