@@ -8,14 +8,11 @@
   "scripts": {
     "launch": "node -r ./project/babel-register.js",
     "start": "yarn launch src/index",
-    "task": "grunt"
+    "task": "grunt",
+    "validate": "grunt validate"
   },
   "license": "GPL-v3.0",
   "private": true,
-  "workspaces": [
-    "src/app",
-    "src/server"
-  ],
   "devDependencies": {
     "@babel/cli": "^7.2.3",
     "@babel/core": "^7.4.0",
@@ -23,8 +20,13 @@
     "@babel/preset-env": "^7.4.1",
     "@babel/preset-typescript": "^7.3.3",
     "@babel/register": "^7.4.0",
+    "@types/debug": "^4.1.2",
+    "@types/express": "^4.16.1",
     "@types/grunt": "^0.4.24",
+    "@types/react": "^16.8.8",
+    "@types/react-dom": "^16.8.3",
     "babel-plugin-istanbul": "^5.1.1",
+    "babel-plugin-transform-es2015-modules-commonjs": "^6.26.2",
     "grunt": "^1.0.3",
     "grunt-babel": "^8.0.0",
     "grunt-contrib-clean": "^2.0.0",
@@ -39,7 +41,12 @@
     "source-map-support": "^0.5.11",
     "time-grunt": "^2.0.0",
     "tslint": "^5.14.0",
-    "typescript": "^3.3.4000",
+    "typescript": "^3.3.4000"
+  },
+  "dependencies": {
+    "express": "^4.16.4",
+    "react": "^16.8.4",
+    "react-dom": "^16.8.4",
     "vx-util": "^0.13.0"
   }
 }

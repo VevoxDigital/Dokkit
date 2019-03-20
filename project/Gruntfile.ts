@@ -27,13 +27,13 @@ function init (grunt: IGrunt): void {
     // Transpilation
     babel: {
       compile: {
-        files: workspaces!.map(workspace => ({
-          cwd: resolve(root, workspace),
-          dest: join(compiledPath, workspace.substring('src/'.length)),
+        files: {
+          cwd: sourcePath,
+          dest: compiledPath,
           expand: true,
           ext: '.js',
           src: [ '**/*.{ts,js}' ]
-        })),
+        },
         options: {
           ...require('../.babelrc')
         }
@@ -139,6 +139,8 @@ function init (grunt: IGrunt): void {
       }
     }
   })
+
+  grunt.registerTask('validate', [ 'ts:verify' ])
 }
 
 module.exports = init

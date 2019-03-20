@@ -7,11 +7,12 @@
             "express",
             "react",
             "react-dom",
-            "node"
+            "node",
+            "vx-util"
         ]
     },
     "include": [
-        "./src",
-        "./test"
+        "./src/**",
+        "./test/**"
     ]
 }
