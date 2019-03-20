@@ -2,13 +2,14 @@
   "name": "dokkit",
   "version": "0.0.1",
   "description": "Powerful and modern documentation hub and wiki",
-  "main": "project/index",
+  "main": "src/index",
   "repository": "https://lab.vevox.io/open-source/dokkit",
   "author": "Vevox Digital",
   "scripts": {
     "launch": "node -r ./project/babel-register.js",
     "start": "yarn launch src/index",
     "task": "grunt",
+    "testrun": "yarn launch .",
     "validate": "grunt validate"
   },
   "license": "GPL-v3.0",
