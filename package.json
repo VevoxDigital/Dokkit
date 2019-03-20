@@ -7,9 +7,8 @@
   "author": "Vevox Digital",
   "scripts": {
     "launch": "node -r ./project/babel-register.js",
-    "start": "yarn launch src/server",
-    "task": "grunt",
-    "update": "yarn launch project/project.ts"
+    "start": "yarn launch src/index",
+    "task": "grunt"
   },
   "license": "GPL-v3.0",
   "private": true,

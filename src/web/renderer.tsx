@@ -18,7 +18,7 @@ export function createRendererRouter (opts: IWebServerOptions): express.Router {
     const r = express.Router()
 
     const rendered = renderToString(renderMainPage(opts))
-    r.use('/', (req, res) => {
+    r.use('/', (_req, res) => {
         res.render(rendered)
     })
 
