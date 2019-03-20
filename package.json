@@ -1,5 +1,5 @@
 {
-  "name": "@dokkit/root",
+  "name": "dokkit",
   "version": "0.0.1",
   "description": "Powerful and modern documentation hub and wiki",
   "main": "project/index",
