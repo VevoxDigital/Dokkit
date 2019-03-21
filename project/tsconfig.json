@@ -1,0 +1,14 @@
+{
+    "extends": "../tsconfig.json",
+    "compilerOptions": {
+        "rootDir": ".",
+        "types": [
+            "grunt",
+            "node"
+        ]
+    },
+    "files": [
+        "Gruntfile.ts",
+        "config.ts"
+    ]
+}

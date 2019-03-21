@@ -1,0 +1,18 @@
+{
+    "extends": "./node_modules/vx-util/tsconfig.json",
+    "compilerOptions": {
+        "rootDir": "./src",
+        "jsx": "react",
+        "lib": [ "dom" ],
+        "types": [
+            "express",
+            "react",
+            "react-dom",
+            "node"
+        ]
+    },
+    "include": [
+        "./src/**/*",
+        "./test/**/*"
+    ]
+}

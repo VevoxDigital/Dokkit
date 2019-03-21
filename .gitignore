@@ -5,3 +5,10 @@ node_modules/
 # Logs and such
 npm-error.log
 yarn-error.log
+
+# Temporary files
+*.tmp.txt
+
+# Output dir
+lib/
+coverage/
