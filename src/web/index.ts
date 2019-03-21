@@ -11,7 +11,10 @@ export interface IWebServerOptions {
     /** The working directory of the server */
     cwd: string
 
-    /** The directory of the public app. If relative, resolved from {@link cwd} */
+    /** The base path for static assets */
+    publicBase: string
+
+    /** The directory where static assets are found. If relative, resolved from {@link publicDir} */
     publicDir: string
 
     /** A prefix to use in front of special pages */
@@ -19,23 +22,16 @@ export interface IWebServerOptions {
 
     /** Whether or not case should be ignored when checking the special page prefix */
     specialPagePrefixIgnoreCase: boolean
-
-    /** The base path for static assets */
-    staticAssetBase: string
-
-    /** The directory where static assets are found. If relative, resolved from {@link publicDir} */
-    staticDir: string
 }
 export type IWebServerOptionsRequired = 'cwd'
 
 /** Default options for the web server */
 export const DEFAULT_OPTIONS: ExcludeFields<IWebServerOptions, IWebServerOptionsRequired> = {
     apiBase: '/-',
-    publicDir: 'public',
+    publicBase: '/!',
+    publicDir: 'www',
     specialPagePrefix: '_',
-    specialPagePrefixIgnoreCase: false,
-    staticAssetBase: '/!',
-    staticDir: 'static'
+    specialPagePrefixIgnoreCase: false
 }
 
 /**
@@ -51,7 +47,7 @@ export function createWebServer (options: Options<IWebServerOptions, IWebServerO
     // this would be mostly for React, but there could be other uses
 
     // set up routes
-    app.use(opts.staticAssetBase, createStaticRouter(resolve(opts.cwd, opts.publicDir, opts.staticDir)))
+    app.use(opts.publicBase, createStaticRouter(resolve(opts.cwd, opts.publicDir)))
     app.use(opts.apiBase, createAPIRouter(opts))
 
     // everything else gets sent to the app

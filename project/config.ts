@@ -6,16 +6,7 @@ const CONFIG = {
   /** Build configuration */
   build: {
     /** The root output dir */
-    outdir: 'build',
-
-    /** Subdirectories of the output dir */
-    subdirs: {
-      /** Compiled files (JS, HTML, CSS, etc) */
-      compiled: 'compiled',
-
-      /** Build targets, including OS-specific binaries, ready for distribution */
-      targets: 'target'
-    },
+    outdir: 'lib',
 
     /** Temporary directory */
     tmpdir: '.tmp'

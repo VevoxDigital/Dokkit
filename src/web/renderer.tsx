@@ -12,6 +12,8 @@ export function renderMainPage (opts: IWebServerOptions) {
             <head>
                 <meta charSet='utf8' />
                 <title id='title'>{ productName }</title>
+
+                <script src='/!/index.js' type='module' defer/>
             </head>
             <body>
                 <div id='app'

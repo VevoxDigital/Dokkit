@@ -2,15 +2,15 @@
   "name": "dokkit",
   "version": "0.0.1",
   "description": "Powerful and modern documentation hub and wiki",
-  "main": "src/index",
+  "main": "lib/index",
   "productName": "Dokkit",
   "repository": "https://lab.vevox.io/open-source/dokkit",
   "author": "Vevox Digital",
   "scripts": {
-    "launch": "node -r ./register",
+    "launch": "grunt compile && node .",
     "start": "node .",
     "task": "grunt",
-    "testrun": "yarn launch .",
+    "testrun": "yarn launch src",
     "validate": "grunt validate"
   },
   "license": "GPL-v3.0",

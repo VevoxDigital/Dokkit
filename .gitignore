@@ -8,3 +8,7 @@ yarn-error.log
 
 # Temporary files
 *.tmp.txt
+
+# Output dir
+lib/
+coverage/
