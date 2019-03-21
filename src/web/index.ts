@@ -1,7 +1,7 @@
 
 import * as express from 'express'
 import { resolve } from 'path'
-import { createAPIRouter } from './api'
+import { createAPIRouter, createStaticRouter } from './api'
 import { createRendererRouter } from './renderer'
 
 export interface IWebServerOptions {
@@ -11,7 +11,7 @@ export interface IWebServerOptions {
     /** The working directory of the server */
     cwd: string
 
-    /** The directory of the public app */
+    /** The directory of the public app. If relative, resolved from {@link cwd} */
     publicDir: string
 
     /** A prefix to use in front of special pages */
@@ -26,11 +26,12 @@ export interface IWebServerOptions {
     /** The directory where static assets are found. If relative, resolved from {@link publicDir} */
     staticDir: string
 }
-export type IWebServerOptionsRequired = 'cwd' | 'publicDir'
+export type IWebServerOptionsRequired = 'cwd'
 
 /** Default options for the web server */
 export const DEFAULT_OPTIONS: ExcludeFields<IWebServerOptions, IWebServerOptionsRequired> = {
     apiBase: '/-',
+    publicDir: 'public',
     specialPagePrefix: '_',
     specialPagePrefixIgnoreCase: false,
     staticAssetBase: '/!',
@@ -50,11 +51,11 @@ export function createWebServer (options: Options<IWebServerOptions, IWebServerO
     // this would be mostly for React, but there could be other uses
 
     // set up routes
-    app.use(opts.staticAssetBase, express.static(resolve(opts.publicDir, opts.staticDir)))
+    app.use(opts.staticAssetBase, createStaticRouter(resolve(opts.cwd, opts.publicDir, opts.staticDir)))
     app.use(opts.apiBase, createAPIRouter(opts))
 
     // everything else gets sent to the app
-    app.use('/*', createRendererRouter(opts))
+    app.use('*', createRendererRouter(opts))
 
     return app
 }

@@ -1,2 +1,2 @@
-require('@babel/register')({ extensions: [ '.ts' ] })
+require('./register')
 exports = module.exports = require('./project/Gruntfile.ts')

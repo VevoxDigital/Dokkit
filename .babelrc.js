@@ -5,12 +5,15 @@ const presets = [
       node: true
     }
   }],
-  '@babel/typescript'
+  '@babel/typescript',
+  '@babel/react'
 ]
 const plugins = [
   '@babel/proposal-class-properties',
   '@babel/proposal-object-rest-spread',
-  'transform-es2015-modules-commonjs'
+  [ 'transform-es2015-modules-commonjs', {
+    noInterop: true
+  }]
 ]
 
 exports = module.exports = {
