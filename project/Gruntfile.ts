@@ -83,6 +83,23 @@ function init (grunt: IGrunt): void {
             }
         },
 
+        sass: {
+          compile: {
+            files: [{
+              cwd: sourcePath,
+              dest: buildPath,
+              expand: true,
+              ext: '.css',
+              src: [ 'www/style/*.scss' ]
+            }]
+          },
+          options: {
+            implementation: require('node-sass'),
+            outputStyle: 'compressed',
+            sourceMap: true
+          }
+        },
+
         todo: {
             all: {
                 options: {
@@ -109,7 +126,7 @@ function init (grunt: IGrunt): void {
 
     grunt.registerTask('validate', [ 'ts:verify' ])
 
-    grunt.registerTask('compile', [ 'clean:compile', 'babel:compile', 'copy:static' ])
+    grunt.registerTask('compile', [ 'clean:compile', 'babel:compile', 'sass:compile', 'copy:static' ])
 }
 
 module.exports = init

@@ -12,7 +12,7 @@ export function renderMainPage (opts: IWebServerOptions) {
             <head>
                 <meta charSet='utf8' />
                 <title id='title'>{ productName }</title>
-
+                <link rel='stylesheet' href='/!/style/index.css' />
                 <script src='/!/index.js' type='module' defer/>
             </head>
             <body>

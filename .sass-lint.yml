@@ -1,0 +1,2 @@
+files:
+  include: 'src/www/style/**/*.scss'
