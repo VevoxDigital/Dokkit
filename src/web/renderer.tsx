@@ -4,9 +4,13 @@ import * as React from 'react'
 import { renderToString } from 'react-dom/server'
 import 'vx-util'
 import { productName } from '../../package.json'
+import { logger } from '../logger.js'
 import { IDokkitServerConfig } from '../server'
 
+const LOG = logger('web', 'renderer')
+
 export function renderMainPage (opts: IDokkitServerConfig) {
+  LOG.verb('building React element for render...')
   return (
     <html lang='en-US'>
       <head>
@@ -32,13 +36,14 @@ export function renderMainPage (opts: IDokkitServerConfig) {
 }
 
 export function createRendererRouter (opts: IDokkitServerConfig): Router {
-    const r = new Router()
+  LOG.info('creating renderer router')
+  const r = new Router()
 
-    const rendered = renderToString(renderMainPage(opts))
-    r.get('/*', ctx => {
-      ctx.type = 'text/html'
-      ctx.body = rendered
-    })
+  const rendered = renderToString(renderMainPage(opts))
+  r.get('/*', ctx => {
+    ctx.type = 'text/html'
+    ctx.body = rendered
+  })
 
-    return r
+  return r
 }

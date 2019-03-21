@@ -6,7 +6,10 @@ import * as minimist from 'minimist'
 import { join } from 'path'
 import { Server } from 'tls'
 import { FileManager } from '../io'
+import { logger } from '../logger'
 import { createWebServer } from '../web'
+
+const LOG = logger('server')
 
 export interface IDokkitServerConfig {
   /** The base path for the API  */
@@ -60,6 +63,7 @@ export class DokkitServer {
   public constructor (args: minimist.ParsedArgs, config: Options<IDokkitServerConfig, IDokkitServerConfigRequired>) {
     this.args = args
     this.config = { ...DokkitServer.DEFAULT_OPTIONS, ...config }
+    LOG.debug('init server with config: %O', this.config)
 
     this.files = new FileManager(this)
 
@@ -71,6 +75,7 @@ export class DokkitServer {
    * Creates a new HTTP server from the current app
    */
   public createHTTPServer (): Server {
+    LOG.info('creating and hooking HTTP server(s)...')
     return createSecureServer({
       allowHTTP1: true,
       // TODO make this path more configurable
@@ -83,6 +88,7 @@ export class DokkitServer {
    * Creates a new express server from the current config
    */
   public createExpressServer (): Koa {
+    LOG.info('creating Koa handler...')
     return createWebServer(this.config)
   }
 

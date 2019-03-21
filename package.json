@@ -11,7 +11,7 @@
     "launch": "grunt compile && node .",
     "start": "node .",
     "task": "grunt",
-    "testrun": "yarn launch src",
+    "testrun": "cross-env DEBUG=dokkit* yarn launch src",
     "validate": "grunt validate"
   },
   "license": "GPL-v3.0",
@@ -24,6 +24,7 @@
     "@babel/preset-react": "^7.0.0",
     "@babel/preset-typescript": "^7.3.3",
     "@babel/register": "^7.4.0",
+    "@types/colors": "^1.2.1",
     "@types/debug": "^4.1.2",
     "@types/grunt": "^0.4.24",
     "@types/koa": "^2.0.48",
@@ -36,6 +37,7 @@
     "@types/react-dom": "^16.8.3",
     "babel-plugin-istanbul": "^5.1.1",
     "babel-plugin-transform-es2015-modules-commonjs": "^6.26.2",
+    "cross-env": "^5.2.0",
     "grunt": "^1.0.3",
     "grunt-babel": "^8.0.0",
     "grunt-contrib-clean": "^2.0.0",
@@ -56,6 +58,7 @@
     "typescript": "^3.3.4000"
   },
   "dependencies": {
+    "colors": "^1.3.3",
     "koa": "^2.7.0",
     "koa-mount": "^4.0.0",
     "koa-router": "^7.4.0",

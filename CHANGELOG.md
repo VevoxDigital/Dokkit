@@ -2,6 +2,7 @@
 # Development
 ## 0.0.3
 `+` Add link for favicon, no icon yet  
+`+` Add a bunch of logging  
 `*` Overhaul to use `Koa` (and HTTP/2) over `Express`  
 
 ## 0.0.2
