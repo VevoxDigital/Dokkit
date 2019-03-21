@@ -1,6 +1,6 @@
 {
   "name": "@dokkit/dokkit",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Powerful and modern documentation hub and wiki",
   "main": "lib/index",
   "productName": "Dokkit",

@@ -12,6 +12,8 @@ export function renderMainPage (opts: IDokkitServerConfig) {
       <head>
         <meta charSet='utf8' />
         <title id='title'>{ productName }</title>
+        <link rel='favicon' href='/!/res/favicon.ico' />
+
         <link rel='stylesheet' href='/!/style/index.css' />
 
         <script src='/!/vendor/react'     defer />
