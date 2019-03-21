@@ -8,4 +8,6 @@ import { DokkitServer } from './server'
 
 P_LOG.level = LoggingLevel.VERBOSE
 const server = new DokkitServer(minimist(process.argv.slice(2)), { cwd: __dirname })
-server.server.listen(3000, console.log)
+server.server.listen(3000, () => {
+  P_LOG.info('listening :3000')
+})

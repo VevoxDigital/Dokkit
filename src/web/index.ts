@@ -40,7 +40,7 @@ export function createWebServer (opts: IDokkitServerConfig): Koa {
         status = status.red
         break
     }
-    LOG.debug('%s %s: [%s]%s - %dms', ctx.method, status, ctx.type, ctx.url, ms)
+    LOG.debug(`%s %s: %s - ${'%dms'.magenta} ${'[%s]'.gray}`, ctx.method, status, ctx.url, ms, ctx.type)
   })
 
     // router for public files
