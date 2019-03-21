@@ -1,5 +1,5 @@
 {
-  "name": "dokkit",
+  "name": "@dokkit/dokkit",
   "version": "0.0.2",
   "description": "Powerful and modern documentation hub and wiki",
   "main": "lib/index",
