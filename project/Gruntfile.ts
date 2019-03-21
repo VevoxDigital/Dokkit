@@ -18,22 +18,38 @@ function init (grunt: IGrunt): void {
     require('time-grunt')(grunt)
     require('load-grunt-tasks')(grunt)
 
+    const babelrc = require('../.babelrc')
+
     // Basic configuration
     grunt.initConfig({
         // Transpilation
         babel: {
-            compile: {
-                files: [{
-                cwd: sourcePath,
-                dest: buildPath,
-                expand: true,
-                ext: '.js',
-                src: [ '**/*.{ts,tsx,js}', '!www/res/**' ]
-                }],
-                options: {
-                ...require('../.babelrc')
-                }
+          compile: {
+            files: [{
+              cwd: sourcePath,
+              dest: buildPath,
+              expand: true,
+              ext: '.js',
+              src: [ '**/*.{ts,tsx}', '!www/**' ]
+            }],
+            options: {
+              ...babelrc
             }
+          },
+          www: {
+            files: [{
+              cwd: sourcePath,
+              dest: buildPath,
+              expand: true,
+              ext: '.js',
+              src: [ 'www/**/*.{ts,tsx,js}' ]
+            }],
+            options: {
+              ...babelrc,
+              plugins: babelrc.plugins.slice(0, babelrc.plugins.length - 1),
+              presets: babelrc.presets.slice(1)
+            }
+          }
         },
 
         // Directory cleanup
@@ -59,14 +75,14 @@ function init (grunt: IGrunt): void {
 
         // Direct file copies
         copy: {
-            static: {
-                files: [{
-                    cwd: sourcePath,
-                    dest: buildPath,
-                    expand: true,
-                    src: [ 'www/res/**/*' ]
-                }]
-            }
+          static: {
+            files: [{
+              cwd: sourcePath,
+              dest: buildPath,
+              expand: true,
+              src: [ 'www/res/**/*' ]
+            }]
+          }
         },
 
         exec: {
@@ -126,7 +142,7 @@ function init (grunt: IGrunt): void {
 
     grunt.registerTask('validate', [ 'ts:verify' ])
 
-    grunt.registerTask('compile', [ 'clean:compile', 'babel:compile', 'sass:compile', 'copy:static' ])
+    grunt.registerTask('compile', [ 'clean:compile', 'babel:compile', 'babel:www', 'sass:compile', 'copy:static' ])
 }
 
 module.exports = init

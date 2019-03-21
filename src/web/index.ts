@@ -1,7 +1,6 @@
 
 import * as express from 'express'
-import { resolve } from 'path'
-import { createAPIRouter, createStaticRouter } from './api'
+import { createAPIRouter, createPublicRouter } from './api'
 import { createRendererRouter } from './renderer'
 
 export interface IWebServerOptions {
@@ -47,7 +46,7 @@ export function createWebServer (options: Options<IWebServerOptions, IWebServerO
     // this would be mostly for React, but there could be other uses
 
     // set up routes
-    app.use(opts.publicBase, createStaticRouter(resolve(opts.cwd, opts.publicDir)))
+    app.use(opts.publicBase, createPublicRouter(opts))
     app.use(opts.apiBase, createAPIRouter(opts))
 
     // everything else gets sent to the app
