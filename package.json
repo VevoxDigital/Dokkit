@@ -7,6 +7,7 @@
   "repository": "https://lab.vevox.io/open-source/dokkit",
   "author": "Vevox Digital",
   "scripts": {
+    "gencert": "openssl req -newkey rsa:2048 -nodes -keyout ssl/server.key -x509 -days 365 -out ssl/server.crt -subj \"/O=VevoxDigital/OU=Dokkit/CN=localhost\"",
     "launch": "grunt compile && node .",
     "start": "node .",
     "task": "grunt",
@@ -24,9 +25,13 @@
     "@babel/preset-typescript": "^7.3.3",
     "@babel/register": "^7.4.0",
     "@types/debug": "^4.1.2",
-    "@types/express": "^4.16.1",
     "@types/grunt": "^0.4.24",
+    "@types/koa": "^2.0.48",
+    "@types/koa-mount": "^3.0.1",
+    "@types/koa-router": "^7.0.40",
+    "@types/koa-static": "^4.0.1",
     "@types/mime": "^2.0.1",
+    "@types/minimist": "^1.2.0",
     "@types/react": "^16.8.8",
     "@types/react-dom": "^16.8.3",
     "babel-plugin-istanbul": "^5.1.1",
@@ -51,8 +56,12 @@
     "typescript": "^3.3.4000"
   },
   "dependencies": {
-    "express": "^4.16.4",
+    "koa": "^2.7.0",
+    "koa-mount": "^4.0.0",
+    "koa-router": "^7.4.0",
+    "koa-static": "^5.0.0",
     "mime": "^2.4.0",
+    "minimist": "^1.2.0",
     "react": "^16.8.4",
     "react-dom": "^16.8.4",
     "vx-util": "^0.13.0"

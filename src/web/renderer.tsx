@@ -1,12 +1,12 @@
 
-import * as express from 'express'
+import * as Router from 'koa-router'
 import * as React from 'react'
 import { renderToString } from 'react-dom/server'
 import 'vx-util'
-import { IWebServerOptions } from '.'
 import { productName } from '../../package.json'
+import { IDokkitServerConfig } from '../server'
 
-export function renderMainPage (opts: IWebServerOptions) {
+export function renderMainPage (opts: IDokkitServerConfig) {
   return (
     <html lang='en-US'>
       <head>
@@ -29,13 +29,13 @@ export function renderMainPage (opts: IWebServerOptions) {
   )
 }
 
-export function createRendererRouter (opts: IWebServerOptions): express.Router {
-    const r = express.Router()
+export function createRendererRouter (opts: IDokkitServerConfig): Router {
+    const r = new Router()
 
     const rendered = renderToString(renderMainPage(opts))
-
-    r.get('/', (_req, res) => {
-        res.send(rendered)
+    r.get('/*', ctx => {
+      ctx.type = 'text/html'
+      ctx.body = rendered
     })
 
     return r

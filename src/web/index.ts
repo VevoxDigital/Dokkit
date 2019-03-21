@@ -1,56 +1,25 @@
 
-import * as express from 'express'
-import { createAPIRouter, createPublicRouter } from './api'
+import * as Koa from 'koa'
+import * as mount from 'koa-mount'
+import * as serve from 'koa-static'
+import { resolve } from 'path'
+import { IDokkitServerConfig } from '../server'
+import { createPublicRouter } from './api'
 import { createRendererRouter } from './renderer'
-
-export interface IWebServerOptions {
-    /** The base path for the API  */
-    apiBase: string
-
-    /** The working directory of the server */
-    cwd: string
-
-    /** The base path for static assets */
-    publicBase: string
-
-    /** The directory where static assets are found. If relative, resolved from {@link publicDir} */
-    publicDir: string
-
-    /** A prefix to use in front of special pages */
-    specialPagePrefix: string
-
-    /** Whether or not case should be ignored when checking the special page prefix */
-    specialPagePrefixIgnoreCase: boolean
-}
-export type IWebServerOptionsRequired = 'cwd'
-
-/** Default options for the web server */
-export const DEFAULT_OPTIONS: ExcludeFields<IWebServerOptions, IWebServerOptionsRequired> = {
-    apiBase: '/-',
-    publicBase: '/!',
-    publicDir: 'www',
-    specialPagePrefix: '_',
-    specialPagePrefixIgnoreCase: false
-}
 
 /**
  * Creates a new web server
  * @param cwd The working directory of the public files
  */
-export function createWebServer (options: Options<IWebServerOptions, IWebServerOptionsRequired>): express.Express {
-    const opts: IWebServerOptions = { ...DEFAULT_OPTIONS, ...options }
+export function createWebServer (opts: IDokkitServerConfig): Koa {
+    const app = new Koa()
 
-    const app = express()
-
-    // TODO allow somehow serving from white-listed node modules?
-    // this would be mostly for React, but there could be other uses
-
-    // set up routes
-    app.use(opts.publicBase, createPublicRouter(opts))
-    app.use(opts.apiBase, createAPIRouter(opts))
+    // router for public files
+    app.use(mount(opts.publicBase, serve(resolve(opts.cwd, opts.publicDir))))
+    app.use(createPublicRouter(opts).routes())
 
     // everything else gets sent to the app
-    app.use('*', createRendererRouter(opts))
+    app.use(createRendererRouter(opts).routes())
 
     return app
 }

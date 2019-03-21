@@ -8,7 +8,9 @@ yarn-error.log
 
 # Temporary files
 *.tmp.txt
+.tscache/
 
 # Output dir
+ssl/
 lib/
 coverage/
