@@ -1,8 +1,11 @@
-import Navigation from './Navigation.js'
+import AppNavigation from './AppNavigation.js'
 
 interface IAppProps {
   specialPrefix: string
   specialCaseSensitive: boolean
+}
+
+interface IAppState {
   theme: string
 }
 
@@ -15,13 +18,20 @@ export interface IAppChildProps {
 /**
  * The main app {@link React.Component Component} for Dokkit
  */
-export default class App extends React.Component<IAppProps> {
+export default class App extends React.Component<IAppProps, IAppState> {
+
+  public constructor (props: IAppProps) {
+    super(props)
+    this.state = {
+      theme: 'generic'
+    }
+  }
 
   /** @inheritdoc */
   public render () {
     return (
       <>
-        <Navigation app={this} theme={this.props.theme} />
+        <AppNavigation app={this} theme={this.state.theme} />
         <h2>pageok</h2>
       </>
     )
