@@ -1,5 +1,6 @@
 
 import { readFileSync } from 'fs'
+import * as bodyParser from 'koa-bodyparser'
 import * as Router from 'koa-router'
 import * as mime from 'mime'
 import { join } from 'path'
@@ -37,6 +38,9 @@ export function createPublicRouter (opts: IDokkitServerConfig): Router {
   }
 
   const r = new Router({ prefix: opts.publicBase })
+
+  // helper middleware for parsing bodies of requests
+  r.use(bodyParser())
 
   // vendored files
   r.get('/vendor/:id', (ctx, next) => {

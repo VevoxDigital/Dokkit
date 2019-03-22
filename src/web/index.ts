@@ -1,6 +1,7 @@
 
 import 'colors'
 import * as Koa from 'koa'
+import * as CSRF from 'koa-csrf'
 import * as mount from 'koa-mount'
 import * as serve from 'koa-static'
 import { resolve } from 'path'
@@ -43,11 +44,14 @@ export function createWebServer (opts: IDokkitServerConfig): Koa {
     LOG.debug(`%s %s: %s - ${'%dms'.magenta} ${'[%s]'.gray}`, ctx.method, status, ctx.url, ms, ctx.type)
   })
 
-    // router for public files
+  // CSRF middleware
+  app.use(new CSRF())
+
+  // router for public files
   app.use(mount(opts.publicBase, serve(resolve(opts.cwd, opts.publicDir))))
   app.use(createPublicRouter(opts).routes())
 
-    // everything else gets sent to the app
+  // everything else gets sent to the app
   app.use(createRendererRouter(opts).routes())
 
   return app
