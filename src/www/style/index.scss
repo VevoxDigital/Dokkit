@@ -1,4 +1,21 @@
 
+$color-black: #000;
+$color-gray1: #111;
+$color-gray2: #222;
+$color-gray3: #333;
+$color-gray4: #444;
+$color-gray5: #555;
+$color-gray6: #666;
+$color-gray7: #777;
+$color-gray8: #888;
+$color-gray9: #999;
+$color-grayA: #AAA;
+$color-grayB: #BBB;
+$color-grayC: #CCC;
+$color-grayD: #DDD;
+$color-grayE: #EEE;
+$color-white: #FFF;
+
 * {
   box-sizing: border-box;
 }
@@ -7,5 +24,6 @@ body {
   font-family: 'Open-Sans', sans-serif;
   margin: 0;
   max-width: 100vw;
-  min-height: 100vh;
 }
+
+@import 'app/app';
