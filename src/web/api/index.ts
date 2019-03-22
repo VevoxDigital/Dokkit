@@ -7,19 +7,19 @@ import { join } from 'path'
 import { IDokkitServerConfig } from '../../server'
 import { registerFallbackHandler } from '../lib'
 
-export interface IVenderModules extends Dictionary<string> {
+export interface IVendorModules extends Dictionary<string> {
   react: string
   ['react-dom']: string
 }
 
 /** Vendor mappings for development */
-export const VENDOR_DEVELOPMENT: IVenderModules = {
+export const VENDOR_DEVELOPMENT: IVendorModules = {
   react: 'umd/react.development.js',
   ['react-dom']: 'umd/react-dom.development.js'
 }
 
 /** Vendor mappings for production */
-export const VENDOR_PRODUCTION: IVenderModules = {
+export const VENDOR_PRODUCTION: IVendorModules = {
   react: 'umd/react.production.min.js',
   ['react-dom']: 'umd/react-dom.production.min.js'
 }
