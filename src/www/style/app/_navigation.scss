@@ -1,6 +1,19 @@
 .navbar {
-  background-color: $color-grayD;
-  color: $color-gray3;
-  padding: 10px;
+  background-color: $color-gray-d;
+  color: $color-gray-3;
   width: 100%;
+
+  .navbar-brand {
+    color: inherit;
+    display: inline-block;
+    font-weight: bold;
+    padding: 14px 24px;
+    text-decoration: none;
+    transition: background-color 250ms;
+    vertical-align: middle;
+
+    &:hover {
+      background-color: rgba($color-black, .1);
+    }
+  }
 }
