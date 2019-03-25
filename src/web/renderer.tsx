@@ -1,17 +1,23 @@
 
-import * as express from 'express'
+import * as Router from 'koa-router'
 import * as React from 'react'
 import { renderToString } from 'react-dom/server'
 import 'vx-util'
-import { IWebServerOptions } from '.'
 import { productName } from '../../package.json'
+import { logger } from '../logger.js'
+import { IDokkitServerConfig } from '../server'
 
-export function renderMainPage (opts: IWebServerOptions) {
+const LOG = logger('web', 'renderer')
+
+export function renderMainPage (opts: IDokkitServerConfig) {
+  LOG.verb('building React element for render...')
   return (
     <html lang='en-US'>
       <head>
         <meta charSet='utf8' />
         <title id='title'>{ productName }</title>
+        <link rel='favicon' href='/!/res/favicon.ico' />
+
         <link rel='stylesheet' href='/!/style/index.css' />
 
         <script src='/!/vendor/react'     defer />
@@ -29,14 +35,15 @@ export function renderMainPage (opts: IWebServerOptions) {
   )
 }
 
-export function createRendererRouter (opts: IWebServerOptions): express.Router {
-    const r = express.Router()
+export function createRendererRouter (opts: IDokkitServerConfig): Router {
+  LOG.info('creating renderer router')
+  const r = new Router()
 
-    const rendered = renderToString(renderMainPage(opts))
+  const rendered = renderToString(renderMainPage(opts))
+  r.get('/*', ctx => {
+    ctx.type = 'text/html'
+    ctx.body = rendered
+  })
 
-    r.get('/', (_req, res) => {
-        res.send(rendered)
-    })
-
-    return r
+  return r
 }

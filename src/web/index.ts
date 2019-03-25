@@ -1,56 +1,58 @@
 
-import * as express from 'express'
-import { createAPIRouter, createPublicRouter } from './api'
+import 'colors'
+import * as Koa from 'koa'
+import * as CSRF from 'koa-csrf'
+import * as mount from 'koa-mount'
+import * as serve from 'koa-static'
+import { resolve } from 'path'
+import { logger } from '../logger'
+import { IDokkitServerConfig } from '../server'
+import { createPublicRouter } from './api'
 import { createRendererRouter } from './renderer'
 
-export interface IWebServerOptions {
-    /** The base path for the API  */
-    apiBase: string
-
-    /** The working directory of the server */
-    cwd: string
-
-    /** The base path for static assets */
-    publicBase: string
-
-    /** The directory where static assets are found. If relative, resolved from {@link publicDir} */
-    publicDir: string
-
-    /** A prefix to use in front of special pages */
-    specialPagePrefix: string
-
-    /** Whether or not case should be ignored when checking the special page prefix */
-    specialPagePrefixIgnoreCase: boolean
-}
-export type IWebServerOptionsRequired = 'cwd'
-
-/** Default options for the web server */
-export const DEFAULT_OPTIONS: ExcludeFields<IWebServerOptions, IWebServerOptionsRequired> = {
-    apiBase: '/-',
-    publicBase: '/!',
-    publicDir: 'www',
-    specialPagePrefix: '_',
-    specialPagePrefixIgnoreCase: false
-}
+const LOG = logger('web')
 
 /**
  * Creates a new web server
  * @param cwd The working directory of the public files
  */
-export function createWebServer (options: Options<IWebServerOptions, IWebServerOptionsRequired>): express.Express {
-    const opts: IWebServerOptions = { ...DEFAULT_OPTIONS, ...options }
+export function createWebServer (opts: IDokkitServerConfig): Koa {
+  const app = new Koa()
 
-    const app = express()
+  app.use(async (ctx, next) => {
+    const start = Date.now()
+    await next()
+    const ms = Date.now() - start
 
-    // TODO allow somehow serving from white-listed node modules?
-    // this would be mostly for React, but there could be other uses
+    let status = '' + ctx.status
+    const statusGroup = Math.floor(ctx.status / 100)
+    switch (statusGroup) {
+      case 1:
+      case 3:
+        status = status.cyan
+        break
+      case 2:
+        status = status.green
+        break
+      case 4:
+        status = status.yellow
+        break
+      case 5:
+        status = status.red
+        break
+    }
+    LOG.debug(`%s %s: %s - ${'%dms'.magenta} ${'[%s]'.gray}`, ctx.method, status, ctx.url, ms, ctx.type)
+  })
 
-    // set up routes
-    app.use(opts.publicBase, createPublicRouter(opts))
-    app.use(opts.apiBase, createAPIRouter(opts))
+  // CSRF middleware
+  app.use(new CSRF())
 
-    // everything else gets sent to the app
-    app.use('*', createRendererRouter(opts))
+  // router for public files
+  app.use(mount(opts.publicBase, serve(resolve(opts.cwd, opts.publicDir))))
+  app.use(createPublicRouter(opts).routes())
 
-    return app
+  // everything else gets sent to the app
+  app.use(createRendererRouter(opts).routes())
+
+  return app
 }

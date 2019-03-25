@@ -1,32 +1,34 @@
 
-import * as express from 'express'
 import { readFileSync } from 'fs'
+import * as bodyParser from 'koa-bodyparser'
+import * as Router from 'koa-router'
 import * as mime from 'mime'
-import { join, resolve } from 'path'
-import { IWebServerOptions } from '..'
+import { join } from 'path'
+import { IDokkitServerConfig } from '../../server'
+import { registerFallbackHandler } from '../lib'
 
-export interface IVenderModules extends Dictionary<string> {
+export interface IVendorModules extends Dictionary<string> {
   react: string
   ['react-dom']: string
 }
 
 /** Vendor mappings for development */
-export const VENDOR_DEVELOPMENT: IVenderModules = {
+export const VENDOR_DEVELOPMENT: IVendorModules = {
   react: 'umd/react.development.js',
   ['react-dom']: 'umd/react-dom.development.js'
 }
 
 /** Vendor mappings for production */
-export const VENDOR_PRODUCTION: IVenderModules = {
+export const VENDOR_PRODUCTION: IVendorModules = {
   react: 'umd/react.production.min.js',
   ['react-dom']: 'umd/react-dom.production.min.js'
 }
 
 /**
  * Creates a router for serving public files
- * @param opts The web server options
+ * @param opts The server config
  */
-export function createPublicRouter (opts: IWebServerOptions): express.Router {
+export function createPublicRouter (opts: IDokkitServerConfig): Router {
 
   // pre-load vendored files
   const vendored = process.env.NODE_ENV ? VENDOR_PRODUCTION : VENDOR_DEVELOPMENT
@@ -35,26 +37,31 @@ export function createPublicRouter (opts: IWebServerOptions): express.Router {
     vendoredFiles[name] = readFileSync(join(__dirname, '../../../node_modules', name, vendored[name])).toString()
   }
 
-  const r = express.Router()
+  const r = new Router({ prefix: opts.publicBase })
 
-  // static files
-  r.use(express.static(resolve(opts.cwd, opts.publicDir)))
+  // helper middleware for parsing bodies of requests
+  r.use(bodyParser())
 
   // vendored files
-  r.get('/vendor/:id', (req, res, next) => {
-    const ven = vendoredFiles[req.params.id]
-    if (ven) res.type(mime.getType(vendored[req.params.id]) || 'text/plain').send(ven)
-    else next()
+  r.get('/vendor/:id', (ctx, next) => {
+    const ven = vendoredFiles[ctx.params.id]
+    if (ven) {
+      ctx.type = mime.getType(vendored[ctx.params.id]) || 'text/plain'
+      ctx.body = ven
+    } else next()
   })
 
-  // else fails, 404
-  r.use((_req, res) => res.status(404).send(''))
+  registerFallbackHandler(r)
   return r
 }
 
-export function createAPIRouter (_opts: IWebServerOptions): express.Router {
-  const r = express.Router()
+/**
+ * Creates a new router for the API
+ * @param opts The server config
+ */
+export function createAPIRouter (opts: IDokkitServerConfig): Router {
+  const r = new Router({ prefix: opts.apiBase })
 
-  r.use((_req, res) => res.status(404).send(''))
+  registerFallbackHandler(r)
   return r
 }

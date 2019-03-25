@@ -1,4 +1,23 @@
 
+$color-black: #000;
+$color-gray-1: #111;
+$color-gray-2: #222;
+$color-gray-3: #333;
+$color-gray-4: #444;
+$color-gray-5: #555;
+$color-gray-6: #666;
+$color-gray-7: #777;
+$color-gray-8: #888;
+$color-gray-9: #999;
+$color-gray-a: #aaa;
+$color-gray-b: #bbb;
+$color-gray-c: #ccc;
+$color-gray-d: #ddd;
+$color-gray-e: #eee;
+$color-white: #fff;
+
+@import 'skeleton-scss/scss/skeleton.scss';
+
 * {
   box-sizing: border-box;
 }
@@ -7,5 +26,6 @@ body {
   font-family: 'Open-Sans', sans-serif;
   margin: 0;
   max-width: 100vw;
-  min-height: 100vh;
 }
+
+@import 'app/app';
