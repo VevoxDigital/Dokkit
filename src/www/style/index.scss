@@ -16,6 +16,8 @@ $color-grayD: #DDD;
 $color-grayE: #EEE;
 $color-white: #FFF;
 
+@import 'skeleton-scss/scss/skeleton.scss';
+
 * {
   box-sizing: border-box;
 }

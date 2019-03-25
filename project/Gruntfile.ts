@@ -111,6 +111,7 @@ function init (grunt: IGrunt): void {
           },
           options: {
             implementation: require('node-sass'),
+            includePaths: [ './node_modules/' ],
             outputStyle: 'compressed',
             sourceMap: true
           }

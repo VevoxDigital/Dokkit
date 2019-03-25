@@ -54,6 +54,7 @@
     "node-sass": "^4.11.0",
     "nyc": "^13.3.0",
     "sass-lint": "^1.12.1",
+    "skeleton-scss": "^2.0.4",
     "source-map-support": "^0.5.11",
     "time-grunt": "^2.0.0",
     "tslint": "^5.14.0",
