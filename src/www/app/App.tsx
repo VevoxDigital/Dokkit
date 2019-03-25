@@ -1,4 +1,6 @@
+import { AppContent } from './AppContent.js'
 import AppNavigation from './AppNavigation.js'
+import { AppSidebar } from './AppSidebar.js'
 
 interface IAppProps {
   specialPrefix: string
@@ -32,7 +34,10 @@ export default class App extends React.Component<IAppProps, IAppState> {
     return (
       <>
         <AppNavigation app={this} theme={this.state.theme} />
-        <h2>pageok</h2>
+        <div className='container container-fluid container-main'>
+          <AppSidebar app={this} theme={this.state.theme} />
+          <AppContent app={this} theme={this.state.theme} />
+        </div>
       </>
     )
   }

@@ -1,2 +1,27 @@
 
-@import 'navigation'
+@import 'navigation';
+
+.container.container-fluid {
+  max-width: initial;
+}
+.container-main {
+  margin: 5px 10px;
+}
+
+@media (#{$bp-larger-than-phablet}) {
+  .container-main {
+    margin: 40px 80px;
+  }
+}
+
+@media (#{$bp-larger-than-desktop}) {
+  .container-main {
+    margin: 30px 120px;
+  }
+}
+
+@media (#{$bp-larger-than-desktophd}) {
+  .container-main {
+    margin: 40px 150px;
+  }
+}
