@@ -90,10 +90,10 @@ function init (grunt: IGrunt): void {
                 cmd: 'nyc mocha',
                 cwd: root,
                 options: {
-                env: {
+                  env: {
                     DEBUG: '',
                     NODE_ENV: 'test'
-                }
+                  }
                 },
                 stdout: 'inherit'
             }
